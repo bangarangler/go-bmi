@@ -9,18 +9,26 @@ import (
 	"strings"
 )
 
+// can't be a const compile don't run functions
+// even though once function runs it won't change again that function is only
+// ran at runtime
 var reader = bufio.NewReader(os.Stdin)
+
+const mainTitle = "BMI Calculator"
+const seperator = "--------------------"
+const weightPrompt = "Please enter your weight (kg): "
+const heightPrompt = "Please enter your height (m): "
 
 func main() {
 	// Output information
-	fmt.Println("BMI Calculator")
-	fmt.Println("--------------------")
+	fmt.Println(mainTitle)
+	fmt.Println(seperator)
 
 	// prompt for user input (weight + height)
-	fmt.Print("Please enter your wight (kg): ")
+	fmt.Print(weightPrompt)
 	weightInput, _ := reader.ReadString('\n') // read until the user hits enter
 
-	fmt.Print("Please enter your height (m): ")
+	fmt.Print(heightPrompt)
 	heightInput, _ := reader.ReadString('\n') // read until the user hits enter
 
 	// save user input in variables
