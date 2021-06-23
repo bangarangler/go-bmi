@@ -1,34 +1,24 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"os"
 	"runtime"
 	"strconv"
 	"strings"
+
+	"github.com/bangarangler/go-bmi/info"
 )
-
-// can't be a const compile don't run functions
-// even though once function runs it won't change again that function is only
-// ran at runtime
-var reader = bufio.NewReader(os.Stdin)
-
-const mainTitle = "BMI Calculator"
-const seperator = "--------------------"
-const weightPrompt = "Please enter your weight (kg): "
-const heightPrompt = "Please enter your height (m): "
 
 func main() {
 	// Output information
-	fmt.Println(mainTitle)
-	fmt.Println(seperator)
+	fmt.Println(info.MainTitle)
+	fmt.Println(info.Seperator)
 
 	// prompt for user input (weight + height)
-	fmt.Print(weightPrompt)
+	fmt.Print(info.WeightPrompt)
 	weightInput, _ := reader.ReadString('\n') // read until the user hits enter
 
-	fmt.Print(heightPrompt)
+	fmt.Print(info.HeightPrompt)
 	heightInput, _ := reader.ReadString('\n') // read until the user hits enter
 
 	// save user input in variables
