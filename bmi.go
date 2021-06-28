@@ -23,34 +23,30 @@ func main() {
 
 	info.PrintWelcome()
 
-	// prompt for user input (weight + height)
 	switch mesurmentType {
 	case "metric":
 		weight, height, err := getUserMesurments(mesurmentType)
 		if err != nil {
 			fmt.Println("Something went wrong")
 		}
-		// bmi := weight / (height * height)
 		bmi, err := calculateBMI("metric", weight, height)
 		if err != nil {
 			fmt.Println("Something went wrong")
 		}
 
-		// output the calculated BMI
-		fmt.Printf("Your BMI: %.2f", bmi)
+		printBMI(bmi)
+
 	case "english":
 		weight, height, err := getUserMesurments(mesurmentType)
 		if err != nil {
 			fmt.Println("something went wrong")
 		}
 
-		// bmi := (weight / (height * height)) * 703
 		bmi, err := calculateBMI("english", weight, height)
 		if err != nil {
 			fmt.Println("Something went wrong")
 		}
-		// output the calculated BMI
-		fmt.Printf("Your BMI: %.2f", bmi)
+		printBMI(bmi)
 	}
 }
 

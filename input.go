@@ -20,43 +20,39 @@ var reader = bufio.NewReader(os.Stdin)
 func getUserMesurments(mType string) (float64, float64, error) {
 	switch mType {
 	case "metric":
-		fmt.Print(info.WeightPromptM)
-		weightInput, _ := reader.ReadString('\n') // read until the user hits enter
-
-		fmt.Print(info.HeightPromptM)
-		heightInput, _ := reader.ReadString('\n') // read until the user hits enter
-
-		// save user input in variables
-		if runtime.GOOS == "windows" {
-			weightInput = strings.Replace(weightInput, "\r\n", "", -1)
-			heightInput = strings.Replace(heightInput, "\r\n", "", -1)
-		} else {
-			weightInput = strings.Replace(weightInput, "\n", "", -1)
-			heightInput = strings.Replace(heightInput, "\n", "", -1)
-		}
-		weight, _ := strconv.ParseFloat(weightInput, 64)
-		height, _ := strconv.ParseFloat(heightInput, 64)
+		weight := getUserInput(info.WeightPromptM, mType)
+		height := getUserInput(info.HeightPromptM, mType)
 
 		return weight, height, nil
 	case "english":
-		fmt.Print(info.WeightPromptE)
-		weightInput, _ := reader.ReadString('\n') // read until the user hits enter
+		weight := getUserInput(info.WeightPromptE, mType)
+		height := getUserInput(info.HeightPromptE, mType)
 
-		fmt.Print(info.HeightPromptE)
-		heightInput, _ := reader.ReadString('\n') // read until the user hits enter
-
-		// save user input in variables
-		if runtime.GOOS == "windows" {
-			weightInput = strings.Replace(weightInput, "\r\n", "", -1)
-			heightInput = strings.Replace(heightInput, "\r\n", "", -1)
-		} else {
-			weightInput = strings.Replace(weightInput, "\n", "", -1)
-			heightInput = strings.Replace(heightInput, "\n", "", -1)
-		}
-		weight, _ := strconv.ParseFloat(weightInput, 64)
-		height, _ := strconv.ParseFloat(heightInput, 64)
 		return weight, height, nil
 	default:
 		return 0.0, 0.0, errors.New("Unsupported type")
 	}
+}
+
+func getUserInput(promptText, mType string) float64 {
+	fmt.Print(promptText)
+	userInput, _ := reader.ReadString('\n') // read until the user hits enter
+
+	switch mType {
+	case "english":
+		if runtime.GOOS == "windows" {
+			userInput = strings.Replace(userInput, "\r\n", "", -1)
+		} else {
+			userInput = strings.Replace(userInput, "\n", "", -1)
+		}
+	case "metric":
+		if runtime.GOOS == "windows" {
+			userInput = strings.Replace(userInput, "\r\n", "", -1)
+		} else {
+			userInput = strings.Replace(userInput, "\n", "", -1)
+		}
+	}
+
+	enteredValue, _ := strconv.ParseFloat(userInput, 64)
+	return enteredValue
 }
